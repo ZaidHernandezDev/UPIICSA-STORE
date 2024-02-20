@@ -1,0 +1,30 @@
+<!--Declaramos que este archivo html es una parte del archivo layout.html-->
+{% extends "UPIICSA_STORE/layout.html" %}
+
+<!--Cargamos los archivos locales-->
+{% load static %}
+
+<!--Mandamos el título de la página al documento layout.html-->
+{% block title %}
+Iniciar sesión
+{% endblock %}
+
+<!--Mandamos el cuerpo de la página al documento layout.html-->
+{% block body %}
+<div class="row">
+    <div class="m-auto text-center">
+        <!-- Imagen de fondo -->
+        <img src="{% static 'UPIICSA_STORE/images/card_user.png' %}" alt="" class="w-75">
+        <div id="card-user-text">
+            <h2 class="d-block">Username: {{Usuario.usuario.username}}</h2>
+            <p class="d-block">Nombre completo: {{Usuario.nombre}} {{apellido}}<br>Whatsapp: {{Usuario.whatsapp}}</p>
+
+            <!-- Enlace para cerrar sesión -->
+            <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar sesión</a> 
+
+            <!-- Enlace para agregar un artículo -->
+            <a href="{% url 'add_product' %}" class="btn btn-success">Agregar un articulo</a> 
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,142 @@
+<!--Declaramos que este archivo html es una parte del archivo layout.html-->
+{% extends "UPIICSA_STORE/layout.html" %}
+
+<!--Cargamos los archivos locales-->
+{% load static %}
+
+<!--Mandamos el título de la página al documento layout.html-->
+{% block title %}
+Inicio
+{% endblock %}
+
+<!--Mandamos el cuerpo de la página al documento layout.html-->
+{% block body %}
+<!-- Inicio de carrusel de imágenes -->
+<div class="carousel slide mx-auto" id="carousel">
+
+    <!-- Inicio de indicadores del carrusel -->
+    <div class="carousel-indicators"> 
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true"
+            aria-label="Slide 1"></button> <!-- Indicador para la primera imagen (activo) -->
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="3" aria-label="Slide 3"></button>
+    </div>
+    <!-- Fin de indicadores del carrusel -->
+
+    <!-- Inicio de imagenes del carrusel -->
+    <div class="carousel-inner">
+
+        <!-- Primera imagen del carrusel -->
+        <div class="carousel-item active"> 
+            <img src="{% static 'UPIICSA_STORE/images/principal.png' %}" alt="img_principal" class="d-block w-100">
+            <div class="carousel-caption">
+                <h5>Bienvenidos</h5>
+            </div>
+        </div>
+
+        <!-- Segunda imagen del carrusel -->
+        <div class="carousel-item"> 
+            <img src="{% static 'UPIICSA_STORE/images/carPostres.jpg' %}" alt="img_segund" class="d-block w-100">
+            <div class="carousel-caption">
+                <h5>Postres</h5>
+                <p>Mira nuestra sección de postres</p>
+            </div>
+        </div>
+
+        <!-- Tercer imagen del carrusel -->
+        <div class="carousel-item"> 
+            <img src="{% static 'UPIICSA_STORE/images/carDulces.jpg' %}" alt="img_tercer" class="d-block w-100">
+            <div class="carousel-caption">
+                <h5>Dulces</h5>
+                <p>Mira nuestra sección de dulces</p>
+            </div>
+        </div>
+
+        <!-- Cuarta imagen del carrusel -->
+        <div class="carousel-item"> 
+            <img src="{% static 'UPIICSA_STORE/images/carDesayuno.jpg' %}" alt="img_cuarto" class="d-block w-100">
+            <div class="carousel-caption">
+                <h5>Desayuno</h5>
+                <p>Mira nuestra sección de desayunos</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Controles del carrusel -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!-- Fin de carrusel de imágenes -->
+
+<!-- Inicio de subtitulo de productos -->
+<div class="my-4">
+    <h3 class="fs-1 float-start">LO MÁS VENDIDO</h3>
+    <img src="{% static 'UPIICSA_STORE/images/masvendido.png' %}" alt="" height="50px">
+</div>
+<!-- Fin de subtitulo de productos -->
+
+<!-- Inicio de los productos más vendidos -->
+<div class="my-3"> 
+
+    <!-- Un bucle for que va a pasar por todos los productos del arreglo productos_data -->
+    {% for producto in productos_data %} 
+
+    <!-- Un if que va a empezar una nueva fila cada 5 articulos -->
+    {% if forloop.first or forloop.counter|divisibleby:5 %} 
+    <div class="row mb-3">
+    {% endif %}
+    <!--Final del if-->
+
+        <!-- Inicio de columna para cada producto, si es el último elemento de la fila este no se va a mostrar en displays menores a lg -->
+        <div class="col-4 col-lg-3 {% if forloop.counter|divisibleby:4 %} d-none d-lg-flex {% endif %} ">
+
+            <!--Inicio de tarjeta de un articulo-->
+            <div class="card m-0 p-0">
+
+                <!-- Imagen obtenida del producto del arreglo-->
+                <img src="{{ producto.imagen.url }}" alt="" class="img-card-prod">
+
+                <!-- Inicio de detalles del producto en el cuerpo de la tarjeta-->
+                <div class="card-body">
+
+                    <!--Obtenemos el nombre del producto del arreglo-->
+                    <h5 class="card-title">{{producto.nombre}}</h5>
+
+                    <!--Obtenemos la descripción del producto del arreglo-->
+                    <p class="card-text">{{producto.descripcion}}</p>
+
+                    <!--Obtenemos los datos del vendedor del arreglo-->
+                    <p class="small">Vendedor: {{producto.vendedor}} <br> Whatsapp:
+                        {{producto.whatsapp}}
+                        <br> Precio:
+                        ${{producto.precio}}
+                    </p>
+                </div>
+                <!-- Fin de detalles del producto en el cuerpo de la tarjeta-->
+
+            </div>
+            <!--Fin de tarjeta de un articulo-->
+
+        </div>
+        <!--Fin de la columna-->
+
+    <!-- Un if que va a terminar una nueva fila cada 5 articulos -->
+    {% if forloop.counter|divisibleby:4 or forloop.last %}
+    </div>
+    {% endif %}
+    <!--Final del if-->
+
+    {% endfor %}
+    <!--Final del bucle for-->
+</div>
+<!-- Fin de los productos más vendidos -->
+
+{% endblock %}

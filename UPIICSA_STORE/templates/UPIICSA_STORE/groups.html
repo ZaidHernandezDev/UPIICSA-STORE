@@ -1,0 +1,79 @@
+<!--Declaramos que este archivo html es una parte del archivo layout.html-->
+{% extends "UPIICSA_STORE/layout.html" %}
+
+<!--Cargamos los archivos locales-->
+{% load static %}
+
+<!--Mandamos el título de la página al documento layout.html-->
+{% block title %}
+Grupos
+{% endblock %}
+
+<!--Mandamos el cuerpo de la página al documento layout.html-->
+{% block body %}
+<!-- Contenedor principal con bordes oscuros -->
+<div class="m-0 p-0 px-4 w-100 h-100 border border-dark border-2">  
+
+    <!-- Primera fila de grupos -->
+    <div class="row my-4"> 
+
+        <div class="col mb-0 p-0 px-3 groups">
+
+            <!-- Enlace al grupo de Postres -->
+            <a href="{% url 'section' section='Postres' %}" class="d-block w-100 h-100"> 
+                <img src="{% static 'UPIICSA_STORE/images/postres.jpg' %}" alt="postre">
+                <p class="text_groups rounded-pill">Postres</p>
+            </a>
+        </div>
+
+        <div class="col mb-0 p-0 px-3 groups">
+
+            <!-- Enlace al grupo de Comida rápida -->
+            <a href="{% url 'section' section='Comida' %}" class="d-block w-100 h-100"> 
+                <img src="{% static 'UPIICSA_STORE/images/comida.jpg' %}" alt="postre">
+                <p class="text_groups rounded-pill">Comida rápida</p>
+            </a>
+        </div>
+
+        <div class="col mb-0 p-0 px-3 groups">
+
+            <!-- Enlace al grupo de Dulces -->
+            <a href="{% url 'section' section='Dulces' %}" class="d-block w-100 h-100"> 
+                <img src="{% static 'UPIICSA_STORE/images/dulces.jpg' %}" alt="postre">
+                <p class="text_groups rounded-pill">Dulces</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Segunda fila de grupos -->
+    <div class="row my-4">
+
+        <div class="col mb-0 p-0 px-3 groups">
+
+            <!-- Enlace al grupo de Ensaladas -->
+            <a href="{% url 'section' section='Ensaladas' %}" class="d-block w-100 h-100"> 
+                <img src="{% static 'UPIICSA_STORE/images/ensaladas.jpg' %}" alt="postre">
+                <p class="text_groups rounded-pill">Ensaladas</p>
+            </a>
+        </div>
+
+        <div class="col mb-0 p-0 px-3 groups">
+
+            <!-- Enlace al grupo de Desayunos -->
+            <a href="{% url 'section' section='Desayunos' %}" class="d-block w-100 h-100"> 
+                <img src="{% static 'UPIICSA_STORE/images/desayunos.jpg' %}" alt="postre">
+                <p class="text_groups rounded-pill">Desayunos</p>
+            </a>
+        </div>
+
+        <div class="col mb-0 p-0 px-3 groups">
+
+            <!-- Enlace al grupo de Antojitos -->
+            <a href="{% url 'section' section='Antojitos' %}" class="d-block w-100 h-100"> 
+                <img src="{% static 'UPIICSA_STORE/images/antojitos.jpg' %}" alt="postre">
+                <p class="text_groups rounded-pill">Antojitos</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

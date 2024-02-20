@@ -1,0 +1,73 @@
+<!--Declaramos que este archivo html es una parte del archivo layout.html-->
+{% extends "UPIICSA_STORE/layout.html" %}
+
+<!--Cargamos los archivos locales-->
+{% load static %}
+
+<!--Mandamos el título de la página al documento layout.html-->
+{% block title %}
+{{section}} {% if section == 'Comida' %} rápida{% endif %}
+{% endblock %}
+
+<!--Mandamos el cuerpo de la página al documento layout.html-->
+{% block body %}
+
+<!--Inicio del titulo de la sección-->
+<div class="row d-block mb-5 rounded-5" id="head_group">
+    <h2 class="rounded-pill">{{section}}{% if section == 'Comida' %} rápida{% endif %}</h2>
+    <img src="{% static img_url %}" alt="{{section}}" class="p-0" {% if section == 'Postres' or section == 'Comida' %} id="postres" {% endif %}>
+</div>
+<!--Fin del titulo de la sección-->
+
+<!-- Un bucle for que va a pasar por todos los productos del arreglo productos_data -->
+{% for producto in productos_data %}
+
+<!-- Un if que va a empezar una nueva fila cada 5 articulos -->
+{%if forloop.counter|add:"-1"|divisibleby:4 or forloop.first%} 
+<div class="row mb-3">
+{% endif %}
+<!--Final del if-->
+
+    <!-- Inicio de columna para cada producto, si es el último elemento de la fila este no se va a mostrar en displays menores a lg -->
+    <div class="col-4 col-lg-3 {% if forloop.counter|divisibleby:4 %} d-none d-lg-flex {% endif %} ">
+
+        <!--Inicio de tarjeta de un articulo-->
+        <div class="card m-0 p-0">
+
+            <!-- Imagen obtenida del producto del arreglo-->
+            <img src="{{ producto.imagen.url }}" alt="" class="img-card-prod" >
+
+            <!-- Inicio de detalles del producto en el cuerpo de la tarjeta-->
+            <div class="card-body">
+
+                <!--Obtenemos el nombre del producto del arreglo-->
+                <h5 class="card-title">{{producto.nombre}}</h5>
+
+                <!--Obtenemos la descripción del producto del arreglo-->
+                <p class="card-text">{{producto.descripcion}}</p>
+
+                <!--Obtenemos los datos del vendedor del arreglo-->
+                <p class="small">Vendedor: {{producto.vendedor}} <br> Whatsapp:
+                    {{producto.whatsapp}}
+                    <br> Precio:
+                    ${{producto.precio}}
+                </p>
+            </div>
+            <!-- Fin de detalles del producto en el cuerpo de la tarjeta-->
+
+        </div>
+        <!--Fin de tarjeta de un articulo-->
+
+    </div>
+    <!--Fin de la columna-->
+
+<!-- Un if que va a terminar una nueva fila cada 5 articulos -->
+{% if forloop.counter|divisibleby:4 or forloop.last %}
+</div>
+{% endif %}
+<!--Final del if-->
+
+{% endfor %}
+<!--Final del bucle for-->
+
+{% endblock %}

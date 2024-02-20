@@ -1,0 +1,42 @@
+<!--Declaramos que este archivo html es una parte del archivo layout.html-->
+{% extends "UPIICSA_STORE/layout.html" %}
+
+<!--Cargamos los archivos locales-->
+{% load static %}
+
+<!--Mandamos el título de la página al documento layout.html-->
+{% block title %}
+Agregar producto
+{% endblock %}
+
+<!--Mandamos el cuerpo de la página al documento layout.html-->
+{% block body %}
+<div class="row">
+
+    <div class="col imgsign py-5">
+
+        <img src="{% static 'UPIICSA_STORE/images/add.jpg' %}" alt="">
+
+    </div>
+
+    <div class="col">
+
+        <h2>Agregar producto</h2>
+        <!-- Formulario para enviar datos del producto a la base de datos del servidor -->
+        <form method="post" action="{% url 'add_product' %}" enctype="multipart/form-data">
+            <!-- Agrega el token de seguridad para prevenir ataques CSRF -->
+            {% csrf_token %}
+            <!-- Renderiza el formulario en guardado en forms.py formato de párrafos -->
+            {{ form.as_p }}
+
+            <div class="d-flex justify-content-center">
+
+                <button type="submit" class="btn btn-success">Agregar</button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+    {% endblock %}
