@@ -120,18 +120,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Vercel doesn't support collectstatic, so we serve from the app static folder
+# Different static configuration for Vercel vs Local
 if os.environ.get('VERCEL'):
+    # In Vercel, use the app static folder directly (no collectstatic)
+    STATIC_ROOT = None
     STATICFILES_DIRS = []
+    WHITENOISE_USE_FINDERS = True
+    WHITENOISE_AUTOREFRESH = True
 else:
+    # In local, use traditional collectstatic approach
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'UPIICSA_STORE/static'),
     ]
 
 # WhiteNoise configuration for static files
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
