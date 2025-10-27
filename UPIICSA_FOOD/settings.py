@@ -120,10 +120,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'UPIICSA_STORE/static'),
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Vercel doesn't support collectstatic, so we serve from the app static folder
+if os.environ.get('VERCEL'):
+    STATICFILES_DIRS = []
+else:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'UPIICSA_STORE/static'),
+    ]
 
 # WhiteNoise configuration for static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
